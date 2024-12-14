@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import type { MouseEventHandler } from 'react';
 import clsx from 'clsx';
 import { OptionType } from 'src/constants/articleProps';
-import { Text } from 'components/text';
+import { Text } from 'src/ui/text';
 import arrowDown from 'src/images/arrow-down.svg';
 import { Option } from './Option';
 import { isFontFamilyClass } from './helpers/isFontFamilyClass';
@@ -22,12 +22,13 @@ type SelectProps = {
 
 export const Select = (props: SelectProps) => {
 	const { options, placeholder, selected, onChange, onClose, title } = props;
-	const [sideBarVisible, setIsOpen] = useState<boolean>(false);
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const rootRef = useRef<HTMLDivElement>(null);
 	const placeholderRef = useRef<HTMLDivElement>(null);
+	const optionClassName = selected?.optionClassName ?? '';
 
 	useOutsideClickClose({
-		sideBarVisible,
+		isOpen,
 		rootRef,
 		onClose,
 		onChange: setIsOpen,
@@ -43,7 +44,7 @@ export const Select = (props: SelectProps) => {
 		onChange?.(option);
 	};
 	const handlePlaceHolderClick: MouseEventHandler<HTMLDivElement> = () => {
-		setIsOpen((sideBarVisible) => !sideBarVisible);
+		setIsOpen((isOpen) => !isOpen);
 	};
 
 	return (
@@ -58,17 +59,13 @@ export const Select = (props: SelectProps) => {
 			<div
 				className={styles.selectWrapper}
 				ref={rootRef}
-				data-is-active={sideBarVisible}
+				data-is-active={isOpen}
 				data-testid='selectWrapper'>
-				<img
-					src={arrowDown}
-					alt='иконка стрелочки'
-					className={clsx(styles.arrow, { [styles.arrow_open]: sideBarVisible })}
-				/>
+				<img src={arrowDown} alt='иконка стрелочки' className={styles.arrow} />
 				<div
 					className={clsx(
 						styles.placeholder,
-						styles[selected?.optionClassName || '']
+						(styles as Record<string, string>)[optionClassName]
 					)}
 					data-status={status}
 					data-selected={!!selected?.value}
@@ -85,7 +82,7 @@ export const Select = (props: SelectProps) => {
 						{selected?.title || placeholder}
 					</Text>
 				</div>
-				{sideBarVisible && (
+				{isOpen && (
 					<ul className={styles.select} data-testid='selectDropdown'>
 						{options
 							.filter((option) => selected?.value !== option.value)

@@ -176,4 +176,4 @@ export const defaultArticleState = {
 	fontSizeOption: fontSizeOptions[0],
 };
 
-export type sideBarStateType = typeof defaultArticleState;
+export type ArticleStateType = typeof defaultArticleState;

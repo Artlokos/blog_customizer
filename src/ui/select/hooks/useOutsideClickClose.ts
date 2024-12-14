@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 
 type UseOutsideClickClose = {
-	sideBarVisible: boolean;
+	isOpen: boolean;
 	onChange: (newValue: boolean) => void;
 	onClose?: () => void;
-	rootRef: React.RefObject<HTMLElement>;
+	rootRef: React.RefObject<HTMLDivElement>;
 };
 
 export const useOutsideClickClose = ({
-	sideBarVisible,
+	isOpen,
 	rootRef,
 	onClose,
 	onChange,
@@ -17,20 +17,15 @@ export const useOutsideClickClose = ({
 		const handleClick = (event: MouseEvent) => {
 			const { target } = event;
 			if (target instanceof Node && !rootRef.current?.contains(target)) {
-				sideBarVisible && onClose?.();
+				isOpen && onClose?.();
 				onChange?.(false);
 			}
 		};
 
-		if (sideBarVisible) {
-			window.addEventListener('mousedown', handleClick);
-		}
+		window.addEventListener('mousedown', handleClick);
 
 		return () => {
-			if (!sideBarVisible){
-				window.removeEventListener('mousedown', handleClick);
-			}
+			window.removeEventListener('mousedown', handleClick);
 		};
-		
-	}, [onClose, onChange, sideBarVisible]);
+	}, [onClose, onChange, isOpen]);
 };
