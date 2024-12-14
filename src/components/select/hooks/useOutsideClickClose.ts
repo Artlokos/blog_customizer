@@ -22,10 +22,15 @@ export const useOutsideClickClose = ({
 			}
 		};
 
-		window.addEventListener('mousedown', handleClick);
+		if (sideBarVisible) {
+			window.addEventListener('mousedown', handleClick);
+		}
 
 		return () => {
-			window.removeEventListener('mousedown', handleClick);
+			if (!sideBarVisible){
+				window.removeEventListener('mousedown', handleClick);
+			}
 		};
+		
 	}, [onClose, onChange, sideBarVisible]);
 };

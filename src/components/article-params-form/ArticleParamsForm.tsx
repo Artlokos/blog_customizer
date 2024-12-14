@@ -1,10 +1,17 @@
-/* eslint-disable prettier/prettier */
 import { ArrowButton } from 'components/arrow-button';
 import { Button } from 'components/button';
 import { Text } from '../text';
 import { FormEvent, useRef, useState } from 'react';
 import { Select } from '../select';
-import { sideBarStateType,backgroundColors,contentWidthArr,defaultArticleState,fontColors,fontFamilyOptions,fontSizeOptions } from 'src/constants/articleProps';
+import {
+	sideBarStateType,
+	backgroundColors,
+	contentWidthArr,
+	defaultArticleState,
+	fontColors,
+	fontFamilyOptions,
+	fontSizeOptions,
+} from 'src/constants/articleProps';
 import { Separator } from '../separator';
 import { RadioGroup } from '../radio-group';
 import { useOutsideClickClose } from '../select/hooks/useOutsideClickClose';
@@ -76,9 +83,15 @@ export const ArticleParamsForm = ({
 
 	return (
 		<>
-			<ArrowButton onClick={setSideBarVisible} sideBarVisible={sideBarVisible} />
+			<ArrowButton
+				onClick={setSideBarVisible}
+				sideBarVisible={sideBarVisible}
+			/>
 			<aside
-				className={clsx(styles.container, sideBarVisible && styles.container_open)}
+				className={clsx(
+					styles.container,
+					sideBarVisible && styles.container_open
+				)}
 				ref={rootRef}>
 				<form
 					className={styles.form}
