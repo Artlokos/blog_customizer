@@ -21,16 +21,14 @@ export const useOutsideClickClose = ({
 				onChange?.(false);
 			}
 		};
-
-		if (sideBarVisible) {
-			window.addEventListener('mousedown', handleClick);
-		}
+	
+		sideBarVisible && window.addEventListener('mousedown', handleClick);
 
 		return () => {
-			if (!sideBarVisible){
+			if (!sideBarVisible) {
 				window.removeEventListener('mousedown', handleClick);
 			}
 		};
-		
+
 	}, [onClose, onChange, sideBarVisible]);
 };

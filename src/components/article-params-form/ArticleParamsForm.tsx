@@ -14,7 +14,7 @@ import {
 } from 'src/constants/articleProps';
 import { Separator } from '../separator';
 import { RadioGroup } from '../radio-group';
-import { useOutsideClickClose } from '../select/hooks/useOutsideClickClose';
+// import { useOutsideClickClose } from '../select/hooks/useOutsideClickClose';
 import { useCloseSideBar } from './hooks/useCloseSideBar';
 import styles from './ArticleParamsForm.module.scss';
 import clsx from 'clsx';
@@ -40,12 +40,12 @@ export const ArticleParamsForm = ({
 	const rootRef = useRef<HTMLElement | null>(null);
 	const formRef = useRef<HTMLFormElement>(null);
 
-	useOutsideClickClose({
-		sideBarVisible,
-		rootRef,
-		onClose: () => setSideBarVisible(false),
-		onChange: setSideBarVisible,
-	});
+	// useOutsideClickClose({
+	// 	sideBarVisible,
+	// 	rootRef,
+	// 	onClose: () => setSideBarVisible(false),
+	// 	onChange: setSideBarVisible,
+	// });
 
 	useCloseSideBar({
 		sideBarVisible: sideBarVisible,
